@@ -17,7 +17,6 @@
 #define SYM1   6
 #define SYM2   7
 #define NUMS   8
-#define FNUMS  9
 
 / {
    chosen {
@@ -55,117 +54,189 @@
             , <&macro_tap &to MACRO_PLACEHOLDER>;
       };
    };
-   behaviors {
-        tdesc: tdesc {
-            compatible = "zmk,behavior-tap-dance";
-            #binding-cells = <0>;
-            bindings = <&kp ESC>, <&kp RET>;
+   combos {
+        compatible = "zmk,combos";
+        combo_f1 {
+            key-positions = <16 25>;
+            bindings = <&kp F1>;
+            layers = <8>;
         };
-        tdfslh: tdfslh {
-            compatible = "zmk,behavior-tap-dance";
-            #binding-cells = <0>;
-            bindings = <&kp FSLH>, <&kp BSLH>;
+        combo_f2 {
+            key-positions = <16 26>;
+            bindings = <&kp F2>;
+            layers = <8>;
         };
-        tdplus: tdplus {
-            compatible = "zmk,behavior-tap-dance";
-            #binding-cells = <0>;
-            bindings = <&kp PLUS>, <&kp DOT>;
+        combo_f3 {
+            key-positions = <16 27>;
+            bindings = <&kp F3>;
+            layers = <8>;
         };
-        tdminus: tdminus {
-            compatible = "zmk,behavior-tap-dance";
-            #binding-cells = <0>;
-            bindings = <&kp MINUS>, <&kp EQL>;
+        combo_f4 {
+            key-positions = <16 13>;
+            bindings = <&kp F4>;
+            layers = <8>;
         };
-   };
+        combo_f5 {
+            key-positions = <16 14>;
+            bindings = <&kp F5>;
+            layers = <8>;
+        };
+        combo_f6 {
+            key-positions = <16 15>;
+            bindings = <&kp F6>;
+            layers = <8>;
+        };
+        combo_f7 {
+            key-positions = <16 1>;
+            bindings = <&kp F7>;
+            layers = <8>;
+        };
+        combo_f8 {
+            key-positions = <16 2>;
+            bindings = <&kp F8>;
+            layers = <8>;
+        };
+        combo_f9 {
+            key-positions = <16 3>;
+            bindings = <&kp F9>;
+            layers = <8>;
+        };
+        combo_f10 {
+            key-positions = <16 24>;
+            bindings = <&kp F10>;
+            layers = <8>;
+        };
+        combo_f11 {
+            key-positions = <16 12>;
+            bindings = <&kp F11>;
+            layers = <8>;
+        };
+        combo_f12 {
+            key-positions = <16 0>;
+            bindings = <&kp F12>;
+            layers = <8>;
+        };
+        combo_tilde {
+            key-positions = <1 2>;
+            bindings = <&kp TILDE>;
+            layers = <6>;
+        };
+        combo_at {
+            key-positions = <1 2>;
+            bindings = <&kp AT>;
+            layers = <7>;
+        };
+        combo_grave {
+            key-positions = <13 14>;
+            bindings = <&kp GRAVE>;
+            layers = <7>;
+        };
+        combo_space {
+            key-positions = <13 15>;
+            bindings = <&kp SPACE>;
+            layers = <0 1 2 3>;
+        };
+        combo_ret {
+            key-positions = <12 15>;
+            bindings = <&kp RET>;
+            layers = <0 1 2 3>;
+        };
+        combo_esc {
+            key-positions = <25 27>;
+            bindings = <&kp ESC>;
+            layers = <0 1 2 3>;
+        };
+        combo_bspc {
+            key-positions = <1 3>;
+            bindings = <&kp BSPC>;
+            layers = <0 1 2 3>;
+        };
+        combo_del {
+            key-positions = <0 3>;
+            bindings = <&kp DEL>;
+            layers = <0 1 2 3>;
+        };
+    };
    keymap {
       compatible = "zmk,keymap";
       base1_layer {
          display-name = "BASE1";
          bindings = <
-            &kp M     &kp I  &kp N &kp D &kp W &none &none &none &none &none &none &none
-            &kp R     &kp E  &kp S &kp T &kp B &none &none &none &none &none &none &none
-            &kp SPACE &tdesc &kp X &kp P &kp V             &none &none &none &none &none
+            &kp Y &kp P &kp A &kp M &none       &none &none &none &none &none &none &none
+            &kp S &kp T &kp E &kp R &kp K       &none &none &none &none &none &none &none
+            &kp Z &kp F &kp I &kp N &lang1 KOR1             &none &none &none &none &none
             &sl ARROWS &sl BASE2 &sl SYM1 &none &none &none
             >;
       };
       base2_layer {
          display-name = "BASE2";
          bindings = <
-            &kp H &kp U &kp F &kp G &kp J &none &none &none &none &none &none &none
-            &kp L &kp A &kp C &kp O &kp Z       &none &none &none &none &none &none &none
-            &kp UNDER &kp COMMA &kp Y &kp K &kp Q             &none &none &none &none &none
+            &kp Q &kp V &kp U &kp B &none       &none &none &none &none &none &none &none
+            &kp C &kp L &kp O &kp D &kp Z       &none &none &none &none &none &none &none
+            &kp W &kp G &kp J &kp H &lang2 KOR1             &none &none &none &none &none
             &trans &trans &trans &none &none &none
             >;
       };
       kor1_layer {
          display-name = "KOR1";
          bindings = <
-            &kp Q     &kp W  &kp E &kp R &kp T &none &none &none &none &none &none &none
-            &kp A     &kp S  &kp D &kp F &kp G &none &none &none &none &none &none &none
-            &kp SPACE &tdesc &kp Z &kp X &kp C             &none &none &none &none &none
+            &kp Q &kp W &kp E &kp R &none        &none &none &none &none &none &none &none
+            &kp A &kp S &kp D &kp F &kp G        &none &none &none &none &none &none &none
+            &kp Z &kp X &kp C &kp V &lang1 BASE1             &none &none &none &none &none
             &trans &sl KOR2 &trans &none &none &none
             >;
       };
       kor2_layer {
          display-name = "KOR2";
          bindings = <
-            &kp P     &kp O     &kp I &kp U &kp Y &none &none &none &none &none &none &none
-            &kp M     &kp L     &kp K &kp J &kp H &none &none &none &none &none &none &none
-            &kp UNDER &kp comma &kp N &kp B &kp V             &none &none &none &none &none
+            &kp O &kp I &kp U &kp Y &none        &none &none &none &none &none &none &none
+            &kp L &kp K &kp J &kp H &kp T        &none &none &none &none &none &none &none
+            &kp P &kp M &kp N &kp B &lang2 BASE1             &none &none &none &none &none
             &trans &trans &trans &none &none &none
             >;
       };
       arrows_layer {
          display-name = "ARROWS";
          bindings = <
-            &sk LCMD &sk LCTRL &sk LALT &sk LSHFT &bt BT_SEL 2 &none &none &none &none &none &none &none
-            &kp LEFT &kp DOWN  &kp UP   &kp RIGHT &bt BT_SEL 1 &none &none &none &none &none &none &none
-            &kp BSPC &kp LC(B) &kp TAB  &kp DEL   &bt BT_SEL 0       &none &none &none &none &none
-            &sl FUNS &none &none &none &none &none
+            &kp HOME &kp PG_DN &kp PG_UP &kp END   &none &none &none &none &none &none &none &none
+            &kp LEFT &kp DOWN  &kp UP    &kp RIGHT &none &none &none &none &none &none &none &none
+            &sl FUNS &kp CAPS  &kp LC(B) &kp TAB   &none             &none &none &none &none &none
+            &none &none &none &none &none &none
             >;
       };
       funs_layer {
          display-name = "FUNS";
          bindings = <
-            &lang2   &kp C_VOL_DN &kp C_VOL_UP &caps_word &bt BT_CLR &none &none &none &none &none &none &none
-            &kp HOME &kp PG_DN    &kp PG_UP    &kp END    &kp C_PP   &none &none &none &none &none &none &none
-            &lang1   &kp C_BRI_DN &kp C_BRI_UP &kp CAPS   &kp INS                &none &none &none &none &none
+            &bt BT_CLR &bt BT_SEL 2 &bt BT_SEL 1 &bt BT_SEL 0 &none &none &none &none &none &none &none &none
+            &none      &kp C_VOL_DN &kp C_VOL_UP &kp C_PP     &none &none &none &none &none &none &none &none
+            &none      &kp C_BRI_DN &kp C_BRI_UP &kp INS      &none             &none &none &none &none &none
             &none &none &none &none &none &none
             >;
       };
       sym1_layer {
          display-name = "SYM1";
          bindings = <
-            &kp LT   &kp PLUS &kp MINUS &kp GT   &kp DLLR  &none &none &none &none &none &none &none
-            &sl SYM2 &kp SQT  &kp DOT   &kp EQL  &kp AMPS  &none &none &none &none &none &none &none
-            &kp EXCL &kp RPAR &kp RPAR  &kp SEMI &kp TILDE             &none &none &none &none &none
+            &kp LT    &kp FSLH &kp MINUS &kp GT    &kp DLLR  &none &none &none &none &none &none &none
+            &sl SYM2  &kp DOT  &kp COMMA &kp UNDER &kp AMPS  &none &none &none &none &none &none &none
+            &kp COLON &kp RPAR &kp RPAR  &kp SEMI  &kp EXCL             &none &none &none &none &none
             &none &none &sl NUMS &none &none &none
             >;
       };
       sym2_layer {
          display-name = "SYM2";
          bindings = <
-            &kp LBKT  &kp STAR &tdfslh   &kp RBKT  &kp CARET &none &none &none &none &none &none &none
-            &kp AT    &kp SQT  &kp PRCNT &kp HASH  &kp PIPE  &none &none &none &none &none &none &none
-            &kp QMARK &kp LBRC &kp RBRC  &kp COLON &kp GRAVE             &none &none &none &none &none
+            &kp LBKT  &kp STAR &kp PLUS &kp RBKT &kp CARET &none &none &none &none &none &none &none
+            &kp BSLH  &kp DQT  &kp SQT  &kp EQL  &kp PIPE  &none &none &none &none &none &none &none
+            &kp PRCNT &kp LBRC &kp RBRC &kp HASH &kp QMARK             &none &none &none &none &none
             &none &none &none &none &none &none
             >;
       };
       nums_layer {
          display-name = "NUMS";
          bindings = <
-            &tdminus &kp N6 &kp N8 &kp N9 &none     &none &none &none &none &none &none &none
-            &tdplus  &kp N4 &kp N5 &kp N6 &sl FNUMS &none &none &none &none &none &none &none
-            &kp N0   &kp N1 &kp N2 &kp N3 &none                 &none &none &none &none &none
-            &none &none &none &none &none &none
-            >;
-      };
-      fnums_layer {
-         display-name = "FNUMS";
-         bindings = <
-            &kp F12 &kp F7 &kp F8 &kp F9 &none &none &none &none &none &none &none &none
-            &kp F11 &kp F4 &kp F5 &kp F6 &none &none &none &none &none &none &none &none
-            &kp F10 &kp F1 &kp F2 &kp F3 &none             &none &none &none &none &none
+            &kp MINUS &kp N6 &kp N8 &kp N9 &kp FSLH &none &none &none &none &none &none &none
+            &kp PLUS  &kp N4 &kp N5 &kp N6 &kp STAR &none &none &none &none &none &none &none
+            &kp N0    &kp N1 &kp N2 &kp N3 &kp DOT              &none &none &none &none &none
             &none &none &none &none &none &none
             >;
       };
