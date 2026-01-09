@@ -161,6 +161,11 @@
             bindings = <&sk LSHFT>;
             layers = <0 1 2 3>;
         };
+        combo_cw {
+            key-positions = <24 26>;
+            bindings = <&caps_word>;
+            layers = <0 1 2 3>;
+        };
         combo_lcmd {
             key-positions = <15 16>;
             bindings = <&sk LCMD>;
