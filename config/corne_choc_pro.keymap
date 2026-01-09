@@ -141,11 +141,6 @@
             bindings = <&kp RET>;
             layers = <0 1 2 3>;
         };
-        combo_esc {
-            key-positions = <25 27>;
-            bindings = <&kp ESC>;
-            layers = <0 1 2 3>;
-        };
         combo_bspc {
             key-positions = <1 3>;
             bindings = <&kp BSPC>;
@@ -154,6 +149,31 @@
         combo_del {
             key-positions = <0 3>;
             bindings = <&kp DEL>;
+            layers = <0 1 2 3>;
+        };
+        combo_esc {
+            key-positions = <25 27>;
+            bindings = <&kp ESC>;
+            layers = <0 1 2 3>;
+        };
+        combo_lshft {
+            key-positions = <24 27>;
+            bindings = <&kp LSHFT>;
+            layers = <0 1 2 3>;
+        };
+        combo_lcmd {
+            key-positions = <15 16>;
+            bindings = <&sk LCMD>;
+            layers = <0 1 2 3>;
+        };
+        combo_lctrl {
+            key-positions = <27 28>;
+            bindings = <&sk LCTRL>;
+            layers = <0 1 2 3>;
+        };
+        combo_lalt {
+            key-positions = <3 4>;
+            bindings = <&sk LALT>;
             layers = <0 1 2 3>;
         };
     };
