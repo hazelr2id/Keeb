@@ -158,7 +158,7 @@
         };
         combo_lshft {
             key-positions = <24 27>;
-            bindings = <&kp LSHFT>;
+            bindings = <&sk LSHFT>;
             layers = <0 1 2 3>;
         };
         combo_lcmd {
