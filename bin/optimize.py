@@ -91,22 +91,26 @@ class Layout:
 			f2 = FINGER_GRID[r2][c2]
 			e1 = EFFORT_GRID[r1][c1]
 			e2 = EFFORT_GRID[r2][c2]
+			row_delta = abs(r1 - r2)
 
-			if (1 <= f1 <=4 and 1 <= f2 <=4) or (5 <= f1 <= 8 and 5 <= f2 <=8):
-				row_delta = abs(r1 - r2)
-				if f1 == f2:
-					weight = 1.0 if c1 == c2 else 2.5
-					weight += (row_delta*0.5)
-					self.score.sfb += count * weight * (e1+e2)
-				elif abs(f1 - f2) == 1:
-					if row_delta == 2 or (4 <= c1 <= 5  or 4 <= c2 <= 5):
-						self.score.scissors += count * (e1+e2)
+			if f1 == f2:
+				weight = 2.5 if (4<=c1<=5 or 4<=c2<=5) else 1.0
+				weight += (row_delta*0.5)
+				if (c1 <= 4 and 5 <= c2):
+					weight *= 0.5
+				self.score.sfb += count * weight * (e1+e2)
+			elif abs(f1 - f2) == 1:
+				if row_delta == 2 or (4 <= c1 <= 5  or 4 <= c2 <= 5):
+					weight = 0.5 if (c1 <= 4 and 5 <= c2) else 1.0
+					self.score.scissors += count * weight * (e1+e2)
+				else:
+					if f2 < f1:
+						weight = 1.0 if row_delta == 0 else 0.5
 					else:
-						if f2 < f1:
-							weight = 1.0 if row_delta == 0 else 0.5
-						else:
-							weight = 0.5 if row_delta == 0 else 0.25
-						self.score.rolling += count * weight * (max_e*2 - (e1+e2))
+						weight = 0.5 if row_delta == 0 else 0.25
+					if (c1 <= 4 and 5 <= c2):
+						weight *= 0.5
+					self.score.rolling += count * weight * (max_e*2 - (e1+e2))
 
 		for pair, count in TRIGRAMS.items():
 			a, b, c = pair[0], pair[1], pair[2]
@@ -129,8 +133,7 @@ class Layout:
 				weight = 1.0 if c1 == c3 else 2.5
 				weight += (row_delta*0.5)
 				self.score.sfb += count * weight * (e1+e3) * 0.5
-			elif ((1 <= f1 <= 4 and 1 <= f2 <= 4 and 1 <= f3 <= 4) or
-				 (5 <= f1 <= 8 and 5 <= f2 <= 8 and 5 <= f3 <= 8)):
+			else:
 				is_inroll = (f3 < f2 < f1)
 				is_outroll = (f1 < f2 < f3)
 				row_delta1 = abs(r1 - r2)
@@ -141,6 +144,8 @@ class Layout:
 				if is_inroll or is_outroll:
 					if row_delta1 == 2 or row_delta2 == 2:
 						if row_delta1 == row_delta2:
+							if (c1<=4 and 5<=c2) or (c2<=4 and 5<=c3):
+								weight *= 0.5
 							self.score.scissors += count * (e1+e2+e3) * 0.5
 						continue
 
@@ -149,6 +154,8 @@ class Layout:
 					else:
 						weight = 0.5 if row_delta_sum == 0 else 0.25
 					if has_gap: weight *= 0.5
+					if (c1<=4 and 5<=c2) or (c2<=4 and 5<=c3):
+						weight *= 0.5
 					self.score.rolling += count * weight * (max_e*3 - (e1+e2+e3)) * 0.5
 
 				else:
@@ -188,15 +195,15 @@ SYMBOLS = Counter()
 SYMBOL_BIGRAMS = Counter()
 
 EFFORT_GRID = [
-	[3.2, 2.4, 2.0, 2.2, 4.4, 4.4, 2.2, 2.0, 2.4, 3.2],
-	[1.5, 1.3, 1.1, 1.0, 3.5, 3.5, 1.0, 1.1, 1.3, 1.5],
-	[3.0, 2.6, 2.3, 1.6, 4.2, 4.2, 1.6, 2.3, 2.6, 3.0],
+	[3.2, 2.4, 2.0, 2.2, 9.0, 9.0, 3.2, 3.0, 3.4, 4.2],
+	[1.5, 1.3, 1.1, 1.0, 3.5, 4.5, 2.0, 2.1, 2.3, 2.5],
+	[3.0, 2.6, 2.3, 1.6, 9.0, 9.0, 2.6, 3.3, 3.6, 4.0],
 ]
 
 FINGER_GRID = [
-	[4, 3, 2, 1, 1, 5, 5, 6, 7, 8],
-	[4, 3, 2, 1, 1, 5, 5, 6, 7, 8],
-	[4, 3, 2, 1, 1, 5, 5, 6, 7, 8],
+	[4, 3, 2, 1, 1, 1, 1, 2, 3, 4],
+	[4, 3, 2, 1, 1, 1, 1, 2, 3, 4],
+	[4, 3, 2, 1, 1, 1, 1, 2, 3, 4],
 ]
 
 SCORE_RATES = Score(
@@ -212,7 +219,7 @@ SCORE_IQR = None
 def layout_key(l):
 	return (
 		l.total,
-		-abs(l.left_usage-l.right_usage),
+		l.left_usage,
 		-l.score.sfb,
 		-l.score.effort,
 		-l.score.scissors,
