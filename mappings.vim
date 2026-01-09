@@ -32,8 +32,8 @@ noremap I D
 noremap c y
 noremap c y
 " Etc
-noremap m @
-noremap M q
+noremap w @
+noremap W q
 noremap q :write<CR>
 noremap h :noh<CR>
 noremap H <Plug>(YCMHover)
